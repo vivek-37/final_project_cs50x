@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Log
+{% endblock %}
+
+{% block main %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            console.log('js is running')
+            let dia = document.getElementById('dia');
+            let rest = document.getElementById('ifdia');
+            let selected = dia.options[dia.selectedIndex].value;
+                    if (selected == 'y') {
+                        rest.removeAttribute('hidden');
+                    }
+                    else if(selected == 'n') {
+                        rest.setAttribute('hidden','');
+                    }
+            dia.addEventListener('change', function() {
+                let selected = dia.options[dia.selectedIndex].value;
+                    if (selected == 'y') {
+                        rest.removeAttribute('hidden');
+                    }
+                    else if(selected == 'n') {
+                        rest.setAttribute('hidden','');
+                    }
+            });
+        });
+    </script>
+    <div class="log-form-grid">
+        <div class="left-fr"></div>
+        <div class="card" style="opacity: 90%;">
+            <h1 class="m-plus-rounded-1c-heavy" style="text-align: center; letter-spacing: 1.2px; margin-top: 3%;">View Medical Record</h1>
+            <form action="{{ url_for('logView', log_id=log['log_id']) }}" method="post" style="margin: 5%;">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default1">Title:</span>
+                    <input type="text" id="title" name="title" placeholder="Title" value="{{ log['title'] }}" class="form-control mx-auto w-auto" aria-label="Name" aria-describedby="default1" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default2">Patient:</span>
+                    <select class="form-select mx-auto w-auto" id="patient" name="patient" disabled>
+                        <option disabled>Patient</option>
+                        {% for member in family %}
+                            {% if log['member_id'] == member['member_id'] %}
+                                <option value="{{ member['member_id'] }}" selected> {{ member["member_name"] }} </option>
+                            {% else %}
+                                <option value="{{ member['member_id'] }}"> {{ member["member_name"] }} </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default3">Date of first Symptoms or Injury:</span>
+                    <input type="date" id="dofsi" name="dofsi" value="{{ log['dofsi'] }}" class="form-control mx-auto w-auto" aria-label="DOFSI" aria-describedby="default3" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default4">Health issue:</span>
+                    <select class="form-select mx-auto w-auto" id="issue" name="issue" disabled>
+                        {% if log['health_issue'] == 'r' %}
+                            <option value="r" selected>Recovered</option>
+                            <option value="o">Ongoing</option>
+                        {% else %}
+                            <option value="r">Recovered</option>
+                            <option value="o" selected>Ongoing</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default5">Patient Condition:</span>
+                    <select class="form-select mx-auto w-auto" id="cond" name="cond" disabled>
+                        {% if log['condition'] == 's' %}
+                            <option value="s" selected>Stable</option>
+                            <option value="c">Critical</option>
+                        {% else %}
+                            <option value="s">Stable</option>
+                            <option value="c" selected>Critical</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default6">Diagnosed:</span>
+                    <select class="form-select mx-auto w-auto" id="dia" name="dia" disabled>
+                        {% if log['diagnosed'] == 'n' %}
+                            <option value="n" selected>No</option>
+                            <option value="y">Yes</option>
+                        {% else %}
+                            <option value="n">No</option>
+                            <option value="y" selected>Yes</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <div id = "ifdia">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default7">Name & Address of Hospital/Clinic Visited:</span>
+                        <textarea id="hosp" name="hosp" placeholder="Diagnosis Location" class="form-control mx-auto w-auto" aria-label="Hospital" aria-describedby="default7" disabled>{{ log['hospital_info'] }}</textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default8">Name(s) of Doctor(s):</span>
+                        <input type="text" id="doct" name="doct" placeholder="Doctor Names" value="{{ log['doctors'] }}" class="form-control mx-auto w-auto" aria-label="Doctors" aria-describedby="default8" disabled>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default9">Diagnosis Result:</span>
+                        <textarea id="diares" name="diares" placeholder="Result" class="form-control mx-auto w-auto" aria-label="Result" aria-describedby="default9" disabled>{{ log['diagnosis_result'] }}</textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default10">Recovery Advice:</span>
+                        <textarea id="recadv" name="recadv" placeholder="Advice" class="form-control mx-auto w-auto" aria-label="Advice" aria-describedby="default10" disabled>{{ log['recovery_advice'] }}</textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default11">Prescribed Medication:</span>
+                        <textarea id="med" name="med" placeholder="Prescription" class="form-control mx-auto w-auto" aria-label="Medication" aria-describedby="default11" disabled>{{ log['prescription'] }}</textarea>
+                    </div>
+                    <!-- <div class="input-group mb-3">
+                        <label class="input-group-text" for="images">Upload Related Image</label>
+                        <input type="file" class="form-control" id="images">
+                    </div> -->
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto" style="margin: 5%;">
+                    <button type="submit" class="fancy-button">Edit Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="right-fr"></div>
+{% endblock %}

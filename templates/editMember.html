@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Member
+{% endblock %}
+
+{% block main %}
+<main id="formpage" style="height: 700px; background-image: url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0xMTgtbnVub29uLTE4XzEuanBn.jpg); background-size: cover;">
+    <div class="card" style="margin:50px; max-width: 760px;">
+        <div style="margin:30px; width: clamp(300px, 600px, 800px);">
+            <div class="card-body" style="padding:0%;">
+              <h3 class="card-title" style="margin-bottom: 50px;">Member Details</h3>
+              <form action="{{ url_for('editMemberForm', member_id=member['member_id']) }}" autocomplete="off" method="post">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default1">Name:</span>
+                    <input type="text" id="name" name="name" placeholder="Name" value="{{ member['member_name'] }}" class="form-control mx-auto w-auto" aria-label="Name" aria-describedby="default1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default2">DOB:</span>
+                    <input type="date" id="dob" name="dob" value="{{ member['member_dob'] }}" class="form-control mx-auto w-auto" aria-label="DOB" aria-describedby="default2">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default3">Gender:</span>
+                    <select class="form-select mx-auto w-auto" id="gender" name="gender">
+                        {% if member['member_gender'] == 'M' %}
+                            <option disabled>Gender</option>
+                            <option value ="M" selected>Male</option>
+                            <option value = "F">Female</option>
+                            <option value = "O">Other</option>
+                        {% else %}
+                            {% if member['member_gender'] == 'F' %}
+                                <option disabled>Gender</option>
+                                <option value = "M">Male</option>
+                                <option value = "F" selected>Female</option>
+                                <option value = "O">Other</option>
+                            {% else %}
+                                <option disabled>Gender</option>
+                                <option value = "M">Male</option>
+                                <option value = "F">Female</option>
+                                <option value = "O" selected>Other</option>
+                            {% endif %}
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default4">Favourite Color:</span>
+                    <input type="color" id="color" name="color" value="{{ member['color'] }}" class="form-control mx-auto w-auto" aria-label="Color" aria-describedby="default4" style="height: 3rem;">
+                </div>
+                <button type="submit" class="btn btn-success mx-auto btn-lg" style="display:flex; margin-top: 40px; margin-bottom: 20px;">Update Member</button>
+              </form>
+            </div>
+        </div>
+      </div>
+</main>
+{% endblock %}

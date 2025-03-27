@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Member
+{% endblock %}
+
+{% block main %}
+<main id="formpage" style="height: 700px; background-image: url(https://i.pinimg.com/originals/7b/58/45/7b584571c55666c2f7ee421c42374212.jpg); background-size: cover;">
+    <div class="card m-plus-rounded-1c" style="margin:50px; width: clamp(500px, 1000px, 1200px); font-size:110%">
+            <div class="card-header">
+                <b><h2 class="card-title" style="margin-bottom: 10px; margin-top:10px">Account Settings</h2></b>
+            </div>
+            <div class="card-body">
+                <div class="settings-grid">
+                    <div class="settings-content">
+                        <h1> Hey, {{ user['username'] }} ! </h1>
+                        <p style="font-size: 150%"> Here are some statistics about your account: </p>
+                        <p> You have {{ fam_size }} family members. </p>
+                        <p> Who have contributed to a total of {{ no_of_logs }} logs. </p>
+                        <p> At the moment, there are {{ healthy }} healthy people in your family and {{ patients }} patients. </p>
+                        <!-- <a class="no-underline" href="{{ url_for('delete', user_id=user['id']) }}">
+                            <button type="button" class="btn btn-danger">
+                                Delete Account
+                            </button>
+                        </a> -->
+                        <span>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                Delete Account
+                            </button>
+                            <a class="no-underline" href="{{ url_for('reset') }}">
+                                <button type="button" class="btn btn-primary">
+                                    Reset Password
+                                </button>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="settings-family-list">
+                        <ul class="list-group">
+                            <li class="list-group-item" style="background-color: whitesmoke"><b><h3 style="margin-top: 10px;">Family Member List</h3></b></li>
+                            <ul class="list-group">
+                                {% if fam_size > 1 %}
+                                    {% for member in family %}
+                                        <li class="list-group-item d-flex justify-content-between family-list align-items-start" style="border-top-left-radius:0%;border-top-right-radius:0%">
+                                            <div class="member-item">
+                                                <div class="fw-bold">
+                                                    <a href="{{ url_for('editMemberForm', member_id=member['member_id']) }}">{{ member["member_name"] }}</a>
+                                                    <!-- <div class="color-info" hidden>{{ member["color"] }}</div> -->
+                                                </div>
+                                                {% if (member["health_status"] == 2) %}
+                                                    <span class="badge bg-danger rounded-pill" style="margin-left:5px">:(</span>
+                                                {% else %}
+                                                    {% if (member["health_status"] == 1) %}
+                                                        <span class="badge bg-warning rounded-pill" style="margin-left:5px">:|</span>
+                                                    {% else %}
+                                                        <span class="badge bg-success rounded-pill" style="margin-left:5px">:)</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeModal{{ member['member_id'] }}">
+                                                <span class="material-symbols-outlined" style="padding-top: 0.425rem;">
+                                                    person_remove
+                                                </span>
+                                            </button>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for member in family %}
+                                        <li class="list-group-item d-flex justify-content-between family-list align-items-start" style="border-top-left-radius:0%;border-top-right-radius:0%">
+                                            <div class="member-item">
+                                                <div class="fw-bold">
+                                                    <a href="{{ url_for('editMemberForm', member_id=member['member_id']) }}">{{ member["member_name"] }}</a>
+                                                    <!-- <div class="color-info" hidden>{{ member["color"] }}</div> -->
+                                                </div>
+                                                {% if (member["health_status"] == 2) %}
+                                                    <span class="badge bg-danger rounded-pill" style="margin-left:5px">:(</span>
+                                                {% else %}
+                                                    {% if (member["health_status"] == 1) %}
+                                                        <span class="badge bg-warning rounded-pill" style="margin-left:5px">:|</span>
+                                                    {% else %}
+                                                        <span class="badge bg-success rounded-pill" style="margin-left:5px">:)</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeModal{{ member['member_id'] }}" disabled>
+                                                <span class="material-symbols-outlined" style="padding-top: 0.425rem;">
+                                                    person_remove
+                                                </span>
+                                            </button>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+      </div>
+      {% for member in family %}
+        <div class="modal fade" id="removeModal{{ member['member_id'] }}" tabindex="-1" aria-labelledby="removeModalLabel{{ member['member_id'] }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="removeModalLabel{{ member['member_id'] }}">Remove Family Member?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove this member from the family? <br>All of the member's data stored will be lost forever.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a class="no-underline" href="{{ url_for('deleteMember',member_id=member['member_id']) }}">
+                        <button type="button" class="btn btn-danger">Remove</button>
+                    </a>
+                </div>
+                </div>
+            </div>
+          </div>
+        {% endfor %}
+    <div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteUserLabel">Delete Account?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your account? <br>All data of all members will be lost forever.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a class="no-underline" href="{{ url_for('delete',user_id=user['id']) }}">
+                    <button type="button" class="btn btn-danger">Remove</button>
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- <script>
+    let members2 = document.querySelectorAll('.family-list')
+    for (let index = 0; index < members2.length; index++) {
+        const ele = members2[index];
+        let color = ele.children[0].children[0].children[1].innerHTML;
+        // Convert hex color code to rgb
+        color = color.replace('#', '')
+        r = parseInt(color.substring(0,2),16)
+        g = parseInt(color.substring(2,4),16)
+        b = parseInt(color.substring(4,6),16)
+        a = 0.3
+        rgba = `rgba(${r}, ${g}, ${b}, ${a})`
+        ele.style.backgroundColor = rgba;
+    }
+</script> -->
+{% endblock %}

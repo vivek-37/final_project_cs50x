@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<div class="home-container-grid">
+    <div id ="left-gap"></div>
+    <div class="card border-dark mb-1 m-plus-rounded-1c" id ="main-card">
+        <div class="card-body">
+            <div>
+            <h1 class="m-plus-rounded-1c" style="font-size: 500%; margin-left: 20px;">Medi-Log</h1>
+            <h1 class="m-plus-rounded-1c" style="font-size: 250%; margin-left: 20px;">Your medical history made easy.</h1>
+            <h1 class="m-plus-rounded-1c" style="font-size: 150%; margin-left: 20px; margin-right: 20px; line-height: 1.5;">
+                This website is your best friend when it comes to organising you and your family's personal medical records.
+                Medi-Log lets you update your medical history by adding and creating new records, these records can be
+                stored and searched for easily, reducing your stress and eliminating all the excess time spent.
+            </h1>
+            </div>
+            <a class= "no-underline" href="/logs">
+                <button type="button" class=" btn btn-success btn-lg" style="position:absolute; bottom: 10%; right: 5%; width: 25%;">Make History</button>
+            </a>
+        </div>
+    </div>
+    <div id="statuses">
+    {% for card in cards %}
+        {% if card["health_status"] == 2 %}
+            <div class="card border-dark mb-1 status m-plus-rounded-1c" style="max-width: 18rem;">
+                <div class="card-header" style="font-size: 150%; display: flex;justify-content: space-between;">
+                    <b>{{ card["member_name"] }}</b><span class="badge rounded-pill text-bg-danger"> :( </span>
+                </div>
+                <div class="card-body">
+                    <h1 class="m-plus-rounded-1c" style="font-size: 110%; line-height: 1.5;">Most recent log: <br> {{ card["recent"] }}</h1>
+                </div>
+                <div id="color_info_{{ card['member_id'] }}" hidden>{{ card['color'] }}</div>
+            </div>
+        {% else %}
+            {% if card["health_status"] == 1 %}
+                <div class="card border-dark mb-1 status m-plus-rounded-1c" style="max-width: 18rem;">
+                    <div class="card-header" style="font-size: 150%; display: flex;justify-content: space-between;">
+                        <b>{{ card["member_name"] }}</b><span class="badge rounded-pill text-bg-warning"> :| </span>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="m-plus-rounded-1c" style="font-size: 110%; line-height: 1.5;">Most recent log: <br> {{ card["recent"] }}</h1>
+                    </div>
+                    <div id="color_info_{{ card['member_id'] }}" hidden>{{ card['color'] }}</div>
+                </div>
+            {% else %}
+                <div class="card border-dark mb-1 status m-plus-rounded-1c" style="max-width: 18rem;">
+                    <div class="card-header" style="font-size: 150%; display: flex;justify-content: space-between;">
+                        <b>{{ card["member_name"] }}</b><span class="badge rounded-pill text-bg-success"> :) </span>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="m-plus-rounded-1c" style="font-size: 110%; line-height: 1.5;">Most recent log: <br> {{ card["recent"] }}</h1>
+                    </div>
+                    <div id="color_info_{{ card['member_id'] }}" hidden>{{ card['color'] }}</div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <script>
+        let sideCards = document.querySelectorAll('.card.status')
+        for (let index = 0; index < sideCards.length; index++) {
+            const ele = sideCards[index];
+            let color = ele.children[2].innerHTML;
+            // Convert hex color code to rgb
+            color = color.replace('#', '')
+            r = parseInt(color.substring(0,2),16)
+            g = parseInt(color.substring(2,4),16)
+            b = parseInt(color.substring(4,6),16)
+            // if dark color then white text, if light color then black text
+            avg = (r + g + b)/3
+            if (avg <= 128)
+            {
+                ele.children[0].children[0].style.color = '#ffffff';
+                a = 0.9;
+            }
+            else
+            {
+                ele.children[0].children[0].style.color = '#000000';
+                a = 0.5;
+            }
+            rgba = `rgba(${r}, ${g}, ${b}, ${a})`
+            ele.children[0].style.backgroundColor = rgba;
+        }
+    </script>
+    </div>
+    {% if patients == 0 %}
+        <div id="description">
+            <h1 class="m-plus-rounded-1c" style="font-size: 200%; margin-top: 10px; margin-left: 20px;">All family members are healthy.</h1>
+            <h1 class="m-plus-rounded-1c" style="font-size: 130%; margin-left: 20px;">
+                Relish the time you have when health is with you, i.e, live life to the fullest when you can!
+            </h1>
+        </div>
+    {% else %}
+        <div id="description">
+            <h1 class="m-plus-rounded-1c" style="font-size: 200%; margin-top: 10px; margin-left: 20px;">{{ patients }} family members are unwell.</h1>
+            <h1 class="m-plus-rounded-1c" style="font-size: 130%; margin-left: 20px;">
+                Take care, listen to your doctor's advice, don't skip out on medication. You have our best wishes for your family's recovery.
+            </h1>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

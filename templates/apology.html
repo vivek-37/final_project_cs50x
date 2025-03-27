@@ -1,0 +1,13 @@
+{% extends "layoutDisabled.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <!-- https://memegen.link/ -->
+    <!-- https://knowyourmeme.com/memes/grumpy-cat -->
+    <main class="d-flex justify-content-center">
+        <img alt="{{ top }}" class="border img-fluid justify-content-center" style="margin-top:5%;" src="https://api.memegen.link/images/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?background=https://i.imgur.com/CsCgN7Ll.png&width=400" title="{{ top }}">
+    </main>
+{% endblock %}

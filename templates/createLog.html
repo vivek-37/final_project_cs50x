@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Log
+{% endblock %}
+
+{% block main %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            let dia = document.getElementById('dia');
+            let rest = document.getElementById('ifdia');
+            let iss = document.getElementById('issue');
+            let cond = document.getElementById('groupCond');
+            let selected = dia.options[dia.selectedIndex].value;
+                    if (selected == 'y') {
+                        rest.removeAttribute('hidden');
+                    }
+                    else if(selected == 'n') {
+                        rest.setAttribute('hidden','');
+                    }
+            dia.addEventListener('change', function() {
+                let selected = dia.options[dia.selectedIndex].value;
+                    if (selected == 'y') {
+                        rest.removeAttribute('hidden');
+                    }
+                    else if(selected == 'n') {
+                        rest.setAttribute('hidden','');
+                    }
+            });
+            let s2 = iss.options[iss.selectedIndex].value;
+            if (s2 == 'o') {
+                cond.removeAttribute('hidden');
+            }
+            else if(s2 == 'r') {
+                cond.setAttribute('hidden','');
+            }
+            iss.addEventListener('change', function() {
+                let s2 = iss.options[iss.selectedIndex].value;
+                if (s2 == 'o') {
+                    cond.removeAttribute('hidden');
+                }
+                else if(s2 == 'r') {
+                    cond.setAttribute('hidden','');
+                }
+            });
+        });
+    </script>
+    <div class="log-form-grid">
+        <div class="left-fr"></div>
+        <div class="card" style="opacity: 90%;">
+            <h1 class="m-plus-rounded-1c-heavy" style="text-align: center; letter-spacing: 1.2px; margin-top: 3%;">New Medical Record</h1>
+            <form action="/logs/create" method="post" autocomplete="off" style="margin: 5%;">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default1">Title:</span>
+                    <input type="text" id="title" name="title" placeholder="Title" class="form-control mx-auto w-auto" aria-label="Name" aria-describedby="default1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default2">Patient:</span>
+                    <select class="form-select mx-auto w-auto" id="patient" name="patient">
+                        <option disabled selected>Patient</option>
+                        {% for member in family %}
+                            <option value="{{ member['member_id'] }}"> {{ member["member_name"] }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default3">Date of first Symptoms or Injury:</span>
+                    <input type="date" id="dofsi" name="dofsi" class="form-control mx-auto w-auto" aria-label="DOFSI" aria-describedby="default3">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default4">Health issue:</span>
+                    <select class="form-select mx-auto w-auto" id="issue" name="issue">
+                        <option value="r" selected>Recovered</option>
+                        <option value="o">Ongoing</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" id="groupCond">
+                    <span class="input-group-text" id="default5">Patient Condition:</span>
+                    <select class="form-select mx-auto w-auto" id="cond" name="cond">
+                        <option value="s" selected>Stable</option>
+                        <option value="c">Critical</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="default6">Diagnosed:</span>
+                    <select class="form-select mx-auto w-auto" id="dia" name="dia">
+                        <option value="n" selected>No</option>
+                        <option value="y">Yes</option>
+                    </select>
+                </div>
+                <div id = "ifdia">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default7">Name & Address of Hospital/Clinic Visited:</span>
+                        <textarea id="hosp" name="hosp" placeholder="Diagnosis Location" class="form-control mx-auto w-auto" aria-label="Hospital" aria-describedby="default7"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default8">Name(s) of Doctor(s):</span>
+                        <input type="text" id="doct" name="doct" placeholder="Doctor Names" class="form-control mx-auto w-auto" aria-label="Doctors" aria-describedby="default8">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default9">Diagnosis Result:</span>
+                        <textarea id="diares" name="diares" placeholder="Result" class="form-control mx-auto w-auto" aria-label="Result" aria-describedby="default9"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default10">Recovery Advice:</span>
+                        <textarea id="recadv" name="recadv" placeholder="Advice" class="form-control mx-auto w-auto" aria-label="Advice" aria-describedby="default10"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="default11">Prescribed Medication:</span>
+                        <textarea id="med" name="med" placeholder="Prescription" class="form-control mx-auto w-auto" aria-label="Medication" aria-describedby="default11"></textarea>
+                    </div>
+                    <!-- <div class="input-group mb-3">
+                        <label class="input-group-text" for="images">Upload Related Image</label>
+                        <input type="file" class="form-control" id="images">
+                    </div> -->
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto" style="margin: 5%;">
+                    <button type="submit" class="fancy-button">Add Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="right-fr"></div>
+{% endblock %}

@@ -1,0 +1,210 @@
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.material-symbols-outlined-small {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.playwrite-de-grund-regular {
+    font-family: "Playwrite DE Grund", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* <uniquifier>: Use a unique and descriptive class name
+<weight>: Use a value from 100 to 900 */
+.ibm-plex-sans {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* <uniquifier>: Use a unique and descriptive class name
+    <weight>: Use a value from 100 to 700 */
+.ibm-plex-sans-italic {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* <uniquifier>: Use a unique and descriptive class name
+    <weight>: Use a value from 100 to 800 */
+.m-plus-rounded-1c {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.m-plus-rounded-1c-heavy {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 650;
+    font-style: normal;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+a:visited {
+color: inherit;
+}
+
+.no-underline:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.fancy-button {
+    margin-top: 10px;
+    width: 98%;
+    background-color: #74c9b8;
+    color: white;
+    letter-spacing: 1px;
+    font-size: medium;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fancy-button:hover {
+    background-color: #5ca092;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #7bc8b9;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 255, 183, 0.25);
+}
+
+.form-control-lg:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #7bc8b9;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 255, 183, 0.25);
+}
+
+.form-select:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #7bc8b9;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 255, 183, 0.25);
+}
+
+.home-container-grid {
+    background-image: url(https://i.pinimg.com/originals/12/98/dc/1298dc3d0e1a83e89c803848bb1d669b.jpg);
+    display: grid;
+    grid-template-columns: 0.25fr 3.25fr 1fr;
+    grid-template-rows: 6fr 3fr;
+    min-height: 705px;
+}
+
+#left-gap {
+    grid-row: span 2;
+}
+
+#main-card {
+    position: relative;
+    margin: 30px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+#description {
+    margin: 30px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+#statuses {
+    grid-row: span 2;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.status {
+    margin: 15px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+#formpage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logs-container-grid {
+    background-image: url(https://png.pngtree.com/background/20220724/original/pngtree-memphis-note-ripped-paper-notebook-background-picture-image_1739025.jpg);
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    min-height: 705px;
+}
+
+.log-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+#logs-container{
+    margin-top: 5%;
+    min-height: 575px;
+    margin-bottom: 5%;
+}
+
+.log-form-grid {
+    background-image: url(https://png.pngtree.com/background/20220724/original/pngtree-torn-paper-note-paper-sticky-note-picture-image_1739035.jpg);
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    min-height: 705px;
+}
+
+.form-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(1fr, 6);
+}
+
+.settings-grid{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+}
+
+.member-item{
+    display: flex;
+    justify-content: space-between;
+    font-size: 110%;
+    margin-top: 7px;
+    width: 80%
+}

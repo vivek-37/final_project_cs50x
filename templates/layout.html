@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Medi-Log {% block title %}{% endblock %} </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap&Playwrite+DE+Grund:wght@100..400&display=swap"
+     rel="stylesheet">
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&icon_names=add,delete,edit,grade,logout,menu,north_east,person_remove,search,settings,tune,visibility" />
+     <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav class="navbar bg-light" style="border-bottom: 3px solid gainsboro">
+        <div class="container-fluid">
+                <button type="button" class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                    <span class="material-symbols-outlined" style="font-size: xxx-large; padding-top: 0.425rem;">
+                        menu
+                    </span>
+                </button>
+            <div style="background-color: #74c9b8; border-radius: 1%; border: solid 2px;">
+                <a class="navbar-brand no-underline" href="/">
+                    <img src="https://preview.redd.it/please-please-please-work-v0-b60yxwxtbktd1.png?width=584&format=png&auto=webp&s=90b4d7decd8d85136b7d23c579119e67b9a44879"
+                    alt="Medi-Log" height="60" class="d-inline-block align-text-top">
+                    <img src="https://preview.redd.it/please-please-please-work-v0-mo3p2oxtbktd1.png?width=276&format=png&auto=webp&s=c03e3243ca0a4352927229e5caaf2fa32d4fcd87"
+                        style="border-radius: 50%;" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+                </a>
+            </div>
+        </div>
+      </nav>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header" style="background-color: #74c9b8;">
+            <div style="background-color: #74c9b8;">
+                <a class="navbar-brand no-underline" href="/">
+                    <img src="https://preview.redd.it/please-please-please-work-v0-b60yxwxtbktd1.png?width=584&format=png&auto=webp&s=90b4d7decd8d85136b7d23c579119e67b9a44879"
+                    alt="Medi-Log" height="60" class="d-inline-block align-text-top">
+                    <img src="https://preview.redd.it/please-please-please-work-v0-mo3p2oxtbktd1.png?width=276&format=png&auto=webp&s=c03e3243ca0a4352927229e5caaf2fa32d4fcd87"
+                        style="border-radius: 50%;" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+                </a>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" style="border-bottom: none"><h4>Family Members:</h4></li>
+                <ol class="list-group list-group-numbered">
+                    {% for member in family %}
+                        <li class="list-group-item d-flex justify-content-between family align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    <a href="{{ url_for('editMemberForm', member_id=member['member_id']) }}">{{ member["member_name"] }}</a>
+                                    <div class="color-info" hidden>{{ member["color"] }}</div>
+                                </div>
+                                {{ member["health"] }}
+                            </div>
+                            {% if (member["health_status"] == 2) %}
+                            <span class="badge bg-danger rounded-pill">:(</span>
+                            {% else %}
+                                {% if (member["health_status"] == 1) %}
+                                <span class="badge bg-warning rounded-pill">:|</span>
+                                {% else %}
+                                <span class="badge bg-success rounded-pill">:)</span>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                     {% endfor %}
+                  </ol>
+                  <li class="list-group-item" style="padding-left:0%; padding-right:0%;">
+                    <a class="no-underline" href="/addMember" style="min-width: 100%">
+                        <button type="button" class="btn btn-outline-secondary" style="min-width: 100%">Add family member</button>
+                    </a>
+                  </li>
+            </ul>
+        </div>
+        <div class="offcanvas-footer">
+            <ul class="list-group">
+                <a class="no-underline" href="/settings">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: lightgrey; border-radius: 0%; font-weight: 300;">
+                        <h5>
+                            Account Settings
+                        </h5>
+                        <span class="material-symbols-outlined" style="font-size: x-large; margin-bottom: 0.15rem;">
+                            settings
+                        </span>
+                    </li>
+                </a>
+                <a class="no-underline" href="/logout">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: lightgrey; border-radius: 0%; font-weight: 300;">
+                        <h5>
+                            Logout
+                        </h5>
+                        <span class="material-symbols-outlined" style="font-size: x-large; margin-bottom: 0.15rem;">
+                            logout
+                        </span>
+                    </li>
+                </a>
+              </ul>
+        </div>
+    </div>
+    <script>
+        let members = document.querySelectorAll('.family')
+        for (let index = 0; index < members.length; index++) {
+            const ele = members[index];
+            let color = ele.children[0].children[0].children[1].innerHTML;
+            // Convert hex color code to rgb
+            color = color.replace('#', '')
+            r = parseInt(color.substring(0,2),16)
+            g = parseInt(color.substring(2,4),16)
+            b = parseInt(color.substring(4,6),16)
+            // if dark color then white text, if light color then black text
+            avg = (r + g + b)/3
+            if (avg <= 128)
+            {
+                ele.children[0].children[0].style.color = '#ffffff';
+                a = 0.9;
+            }
+            else
+            {
+                ele.children[0].children[0].style.color = '#000000';
+                a = 0.5;
+            }
+            rgba = `rgba(${r}, ${g}, ${b}, ${a})`
+            ele.style.backgroundColor = rgba;
+        }
+    </script>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <!-- <footer>
+        <h1>&copy Vivek R A</h1>
+    </footer> -->
+</body>
+</html>
