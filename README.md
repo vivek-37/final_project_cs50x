@@ -27,7 +27,7 @@ The main webpages of this website includes a login-register page, an account/use
 - SQL (SQLite)
 
 ## Project Structure & Details:
-All files are stored in the root project directory.
+HTML files are stored in the templates folder, css files are stored in the static folder. All the other files are stored in the root directory.
 
 ### requirements.txt
 Text file containing required software.
@@ -130,15 +130,15 @@ Contains the main code required to run the website. The list of all function/rou
 It contains code for 2 functions, a function that displays error messages `apology()` and a wrapper function `login_required()` that checks if the user has a session token and if they have filled out the first member form while registering
 
 ## Improvements & Compromises:
-Firstly, this is my first README so please bare with me if it is not upto standard or there are somethings to be desired.
+Firstly, this is my first README so please excuse me if it is not upto standard or there are somethings to be desired.
 
 Secondly, there were a lot of choices made on the fact that a working website is more important than a half made perfect one.
 The deadline for this project was admittedly mismanaged by me, mainly due to me persuing 2 college degrees.
 
-Nonetheless, I wanted to go over some unpleasant choices I made which I would like to go over. A lot of flawed design choices, some icons too big, inconsistent use of fonts, some buttons not obvious in their function, some spaces left too empty, not enough ways to navigate around the website; the list goes on.
-Some features that I wanted to implement but didn't because of time issues or I just didn't know how to include a filter menu to search for logs based on specific filters, a way to star a log or mark as important, a way to store images in the database and display them as people much prefer to upload images of information than to type it all out.
+Nonetheless, I wanted to go over some non-ideal choices I made. A lot of flawed design choices, some icons too big, inconsistent use of fonts, some buttons not obvious in their function, some spaces left too empty, not enough ways to navigate around the website; the list goes on.
+Some features that I wanted to implement but didn't because of time issues or I just didn't know how to include a filter menu to search for logs based on specific filters, a way to star/mark a log as important, a way to store images in the database and display them as people much prefer to upload images of information than to type it all out.
 
 Another thing that I tried but could not complete was to use Unsplash API to give me images that I could display as banners in my login and register pages.
 
 ## Contact:
-If anyone even reads this and for some reason wants to contact me, here's my email: vivekra.0703@gmail.com
+If anyone even reads this and wants to contact me, here's my email: vivekra.0703@gmail.com
